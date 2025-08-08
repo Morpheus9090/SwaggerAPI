@@ -87,6 +87,49 @@ class BranchController extends Controller
             'status_code' => 200
         ]);
     }
+   /**
+     * @OA\Post(
+     *     path="/api/branch/update",
+     *     summary="Update a branch by ID",
+     *     description="Updates a branch with the provided ID, name, location, and contact number.",
+     *     operationId="updateBranch",
+     *     tags={"Branch"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"id", "name", "location", "contact_number"},
+     *             @OA\Property(property="id", type="integer", example=1),
+     *             @OA\Property(property="name", type="string", example="Updated Branch Name"),
+     *             @OA\Property(property="location", type="string", example="Siem Reap"),
+     *             @OA\Property(property="contact_number", type="string", example="098765432")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Branch updated successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="update_data", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="Updated Branch Name"),
+     *                 @OA\Property(property="location", type="string", example="Siem Reap"),
+     *                 @OA\Property(property="contact_number", type="string", example="098765432"),
+     *                 @OA\Property(property="created_at", type="string", example="2025-08-06T12:00:00.000000Z"),
+     *                 @OA\Property(property="updated_at", type="string", example="2025-08-06T12:10:00.000000Z")
+     *             ),
+     *             @OA\Property(property="status_code", type="integer", example=200)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Branch not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="resource not found"),
+     *             @OA\Property(property="status_code", type="integer", example=404)
+     *         )
+     *     )
+     * )
+     */
     function update(Request $request)
     {
         $branch = Branch::find($request->id);
